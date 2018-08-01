@@ -2,7 +2,7 @@ import time
 import os
 import logging
 import threading
-from training_history import TrainingHistory
+from training.training_history import TrainingHistory
 import glob
 import pickle
 from utils.model_evaluation import Evaluator
@@ -87,8 +87,6 @@ class Trainer():
 
         name = 'model-acc-{}-loss-{}-samples-{}'.format(accuracy, loss, num_labels)
         directory = "{}/{}".format(self.model_directory, name)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
 
         self.save_model(directory)
         self.save_training_history(directory)

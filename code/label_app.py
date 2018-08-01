@@ -2,18 +2,19 @@ from queue import Queue
 import numpy as np
 import yaml
 import time
+from operator import itemgetter
 
 import pdb
 
 from utils import utils
 from utils import model_builder
+from utils.config_parser import ConfigParser
 import logging
 import sys
 from dataset import Dataset
 from training.trainer import Trainer
 from labeller import ModelLabeller
 from label import Label
-from operator import itemgetter
 
 logger = logging.getLogger('label_app')
 logger.setLevel(logging.DEBUG)
@@ -25,30 +26,28 @@ logger.addHandler(ch)
 
 class LabelApp:
     @staticmethod
-    def load_from(config):
-        with open(config) as f:
+    def load_from(config_path):
+        with open(config_path) as f:
             config = yaml.load(f)
+            parser = ConfigParser(config)
+            parser._create_directories()
 
-        task = Task.load_from(config['task'])
-        dataset = Dataset.load_from(config['dataset'])
-        model_directory = config['model_directory']
-        label_helper = Label.load_from(config['label'])
+        task = Task.load_from(parser.task)
+        dataset = Dataset.load_from(parser.dataset)
+        model_config = config['model']
+        label_helper = Label.load_from(parser.label)
         user = config['user']
-        if 'model' in config:
-            model_config = config['model']
-        else:
-            model_config = {}
 
-        return LabelApp(task, dataset, model_directory, label_helper, user, model_config)
+        return LabelApp(task, dataset, label_helper, user, model_config)
 
-    def __init__(self, task, dataset, model_directory, label_helper, user, model_config, model_labelling=True):
+    def __init__(self, task, dataset, label_helper, user, model_config, model_labelling=True):
         self.task = task
         self.dataset = dataset
         self.data_type = self.dataset.data_type
 
         self.label_helper = label_helper
-        self.label_type = label_helper.label_type
 
+        model_directory = model_config['directory']
         self.model = model_builder.ModelBuilder(dataset, self.label_helper, model_config).build()
 
         self.trainer = Trainer(model_directory, self.model, self.dataset, logger=logger)

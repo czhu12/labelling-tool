@@ -19,7 +19,7 @@ def index():
         title=label_app.title,
         description=label_app.description,
         label_helper=label_app.label_helper,
-        label_type=label_app.label_type,
+        label_type=label_app.label_helper.label_type,
     )
 
 @app.route('/dataset')
@@ -46,7 +46,7 @@ def task():
     return jsonify({
         'title': label_app.title,
         'description': label_app.description,
-        'label_type': label_app.label_type,
+        'label_type': label_app.label_helper.label_type,
         'data_type': label_app.data_type,
         'classes': classes,
         'valid_tokens': valid_tokens,
@@ -142,7 +142,7 @@ def demo():
         title=label_app.title,
         description=label_app.description,
         label_helper=label_app.label_helper,
-        label_type=label_app.label_type,
+        label_type=label_app.label_helper.label_type,
     )
 
 @app.route("/score", methods=['POST', 'PUT', 'GET'])

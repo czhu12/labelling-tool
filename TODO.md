@@ -1,9 +1,10 @@
+Rethink how to structure config
+
 Features:
   1. Be able to have more than one label
   2. Add eta times to the features
   3. Classify sequences
-  4. Be able to upload a pretrained model
-  5. Light net integration for object detection
+  4. Be able to upload a pretrained model. This one kind of works
 Validations:
   1. Check to make sure the directories that are specified are correct
   2. Single directory for all the data collected by the model
@@ -13,4 +14,3 @@ Validations:
   6. The evaluation is not correct, we need to simulate the max entropy sampling environment
 Front end work:
   1. Show improvements in performance given more labels
-  2. Probably about time to reactify this app...
