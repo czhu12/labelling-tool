@@ -22,7 +22,7 @@ MarkupSafe==1.0
 matplotlib==2.2.2
 nltk==3.2.5
 numpy==1.14.3
-opencv-python==3.4.0.12
+opencv-python==4.2.0.32
 pandas==0.22.0
 Pillow==5.1.0
 plac==0.9.6
