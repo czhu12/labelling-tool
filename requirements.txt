@@ -21,7 +21,7 @@ Markdown==2.6.11
 MarkupSafe==1.0
 matplotlib==2.2.2
 nltk==3.2.5
-numpy==1.14.3
+numpy==1.22.0
 opencv-python==3.4.0.12
 pandas==0.22.0
 Pillow==5.1.0
